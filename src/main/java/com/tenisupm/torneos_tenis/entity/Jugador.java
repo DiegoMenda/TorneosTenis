@@ -38,6 +38,10 @@ public class Jugador {
 		this.telefono = telefono;
 		this.email = email;
 	}
+	
+    // Constructor por defecto
+    public Jugador() {
+    }
 
 	public Long getId() {
 		return id;
