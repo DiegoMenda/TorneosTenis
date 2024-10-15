@@ -26,17 +26,17 @@ public class JugadorService {
 	}
 	
 	public void addNuevoJugador(Jugador jugador) {
-		Optional<Jugador> jugadorOptional = jugadorRepository.findJugadorByUsername(jugador.getUsername());
-		if(jugadorOptional.isPresent()) {
+		Optional<Jugador> jugadorOptionalByUsername = jugadorRepository.findJugadorByUsername(jugador.getUsername());
+		Optional<Jugador> jugadorOptionalByEmail = jugadorRepository.findJugadorByEmail(jugador.getEmail());
+		if(jugadorOptionalByUsername.isPresent()) {
 			throw new IllegalStateException("username ya elegido");
-		}
-		Optional<Jugador> jugadorOptional = jugadorRepository.findJugadorByEmail(jugador.getEmail());
-		if(jugadorOptional.isPresent()) {
+		}else if(jugadorOptionalByEmail.isPresent()) {
 			throw new IllegalStateException("email taken");
+		}else {
+			jugadorRepository.save(jugador);
 		}
-		jugadorRepository.save(jugador);
+		
 	}
-  
   
 	public void deleteJugador(Long jugadorId) {
 		boolean existe =jugadorRepository.existsById(jugadorId);
