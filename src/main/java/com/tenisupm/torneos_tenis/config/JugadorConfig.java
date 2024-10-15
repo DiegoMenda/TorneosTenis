@@ -16,7 +16,7 @@ public class JugadorConfig {
 	CommandLineRunner commandLineRunner(JugadorRepository repository) {
 		return args -> {
 			Jugador pepe = new Jugador("Pepe53", "1234", "José", "Gutiérrez Montoya", "644 44 55 37", "pepeputero69@hotmail.com");
-			repository.saveAll(List.of(pepe));
+			//repository.saveAll(List.of(pepe));
 		};
 	}
 }
