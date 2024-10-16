@@ -13,24 +13,31 @@ import jakarta.transaction.Transactional;
 @Service
 public class JugadorService {
 	
+	private final JugadorRepository jugadorRepository;
+
 	@Autowired
 	public JugadorService(JugadorRepository jugadorRepository) {
 		this.jugadorRepository = jugadorRepository;
 	}
 	
-	private final JugadorRepository jugadorRepository;
 	
 	public List<Jugador> getJugadores(){
 		return jugadorRepository.findAll();
 	}
+	
 	public void addNuevoJugador(Jugador jugador) {
-		Optional<Jugador> jugadorOptional = jugadorRepository.findJugadorByUsername(jugador.getUsername());
-		if(jugadorOptional.isPresent()) {
+		Optional<Jugador> jugadorOptionalByUsername = jugadorRepository.findJugadorByUsername(jugador.getUsername());
+		Optional<Jugador> jugadorOptionalByEmail = jugadorRepository.findJugadorByEmail(jugador.getEmail());
+		if(jugadorOptionalByUsername.isPresent()) {
 			throw new IllegalStateException("username ya elegido");
+		}else if(jugadorOptionalByEmail.isPresent()) {
+			throw new IllegalStateException("email taken");
+		}else {
+			jugadorRepository.save(jugador);
 		}
-		 jugadorRepository.save(jugador);
 		
 	}
+  
 	public void deleteJugador(Long jugadorId) {
 		boolean existe =jugadorRepository.existsById(jugadorId);
 		if(!existe) {
