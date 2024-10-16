@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Jugador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 50px;
+        }
+        .container {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+		.error {
+			color: red; 
+		    text-align: center; 
+		    margin-bottom: 15px;
+		    font-weight: bold;
+		        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registro de Jugador</h2>
+		<div th:if="${error}" class="error" th:text="${error}"></div>
+        <form action="registrar" method="POST">
+            <div>
+                <label for="nombreUsuario">Nombre de Usuario:</label>
+                <input type="text" id="nombreUsuario" name="username" required>
+            </div>
+            <div>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required>
+            </div>
+            <div>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div>
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" id="apellidos" name="apellidos" required>
+            </div>
+            <div>
+                <label for="telefono">Número de Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+            </div>
+            <div>
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <button type="submit">Registrarse</button>
+        </form>
+
+        <!-- Enlace para iniciar sesión después de registrarse -->
+        <div class="login-link">
+            <p>¿Ya tienes una cuenta? <a href="login">Iniciar Sesión</a></p>
+        </div>
+    </div>
+</body>
+</html>
