@@ -32,7 +32,7 @@ public class RegistroController {
 	public String registrarJugador(@ModelAttribute Jugador jugador, Model model) {
 		try {
 			jugadorService.addNuevoJugador(jugador);
-			return "redirect:/v1/login";
+			return "redirect:/v1/bienvenido";
 		}catch(Exception e) {
 			model.addAttribute("error", e.getMessage());
 			return "registrar";

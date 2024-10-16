@@ -60,6 +60,12 @@
         .banner a:hover {
             text-decoration: underline;
         }
+		.error-message {
+		    color: red;
+		    font-weight: bold;
+		    text-align: center;
+		    margin-bottom: 15px;
+	    }
     </style>
 </head>
 <body>
@@ -70,7 +76,10 @@
 
     <div class="container">
         <h2>Iniciar Sesión</h2>
-        <form action="/login" method="POST">
+		<div th:if="${error}" class="error-message"> 
+			<p th:text="${error}"></p>
+		</div>
+        <form action="/v1/login" method="POST">
             <div>
                 <label for="username">Usuario:</label>
                 <input type="text" id="username" name="username" required>
