@@ -14,6 +14,7 @@ public class Jugador {
     private String apellidos;
     private String telefono;
     private String email;
+    private boolean activo;
     
     public Jugador(Long id, String username, String contrasena, String nombre, String apellidos, String telefono,
 			String email) {
@@ -25,6 +26,7 @@ public class Jugador {
 		this.apellidos = apellidos;
 		this.telefono = telefono;
 		this.email = email;
+		this.activo = false;
 	}
 
 	public Jugador(String username, String contrasena, String nombre, String apellidos, String telefono, String email) {
@@ -35,6 +37,7 @@ public class Jugador {
 		this.apellidos = apellidos;
 		this.telefono = telefono;
 		this.email = email;
+		this.activo = false;
 	}
 	
     // Constructor por defecto
@@ -101,6 +104,14 @@ public class Jugador {
 	public String toString() {
 		return "Jugador [id=" + id + ", username=" + username + ", contrasena=" + contrasena + ", nombre=" + nombre
 				+ ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + "]";
+	}
+
+	public boolean getsActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
     
 
