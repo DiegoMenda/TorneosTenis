@@ -65,7 +65,7 @@ public class RegistroController {
             jugadorService.confirmarToken(token);
 
             // Redirigir al usuario a la página de bienvenida
-            return "redirect:/v1/bienvenido";
+            return "redirect:/v1/principal";
 
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());

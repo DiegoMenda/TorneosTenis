@@ -34,7 +34,7 @@ public class LoginController {
 			Model model) {
 		try {
 			jugadorService.validarJugador(username, password);
-			return "redirect:/v1/bienvenido";  // Aquí puedes poner la URI de la siguiente página
+			return "redirect:/v1/principal";  // Aquí puedes poner la URI de la siguiente página
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 			return "login";
