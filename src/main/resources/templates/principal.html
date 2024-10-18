@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partidos de Tenis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+        }
+
+        /* Estilos para el sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #333;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+            left: -250px;
+            transition: transform 0.3s ease-out;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(99%);
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+			margin-top: 40px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .dropdown-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+            outline: none;
+            font-size: 16px;
+			margin-top: 20px;
+        }
+
+		.dropdown-container {
+		    max-height: 0; /* Asegúrate de que inicie cerrado */
+		    overflow: hidden;
+		    transition: max-height 0.3s ease-out;
+		    background-color: #444;
+		    padding-left: 20px;
+		    padding-top: 0; /* Asegúrate de que no haya padding superior */
+			margin-top: 480px;
+		}
+
+        /* Estilos para el contenido principal */
+        main {
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            transition: margin-left 0.3s ease-out;
+            margin-left: 0px;
+        }
+
+        main.shifted {
+            margin-left: 0;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            text-align: center;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilos para el botón de mostrar/ocultar sidebar */
+        .toggle-sidebar-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Botón para mostrar/ocultar sidebar -->
+    <button class="toggle-sidebar-btn" id="toggleSidebar">☰ Menú</button>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+		<a href="v1/cambiar-datos">Cambiar Datos </a>
+        <div class="dropdown-container">
+        </div>
+		
+		<a href="/v1/login">Cerrar Sesion</a>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main id="mainContent">
+        <h1>Bienvenido a Partidos de Tenis</h1>
+        <h2>Gestiona tus partidos y jugadores</h2>
+        <p>Explora los torneos, crea y registra partidos, y consulta los resultados.</p>
+        <a href="/registrar-partido" class="button">Registrar un Partido</a>
+        <a href="/ver-partidos" class="button">Ver Partidos</a>
+        <a href="/jugadores" class="button">Gestionar Jugadores</a>
+    </main>
+
+    <footer>
+        <p>Aplicación de Partidos de Tenis © 2024</p>
+    </footer>
+
+    <!-- Script para el funcionamiento del sidebar y el desplegable -->
+    <script>
+        // Mostrar/ocultar sidebar
+        var toggleButton = document.getElementById("toggleSidebar");
+        var sidebar = document.getElementById("sidebar");
+        var mainContent = document.getElementById("mainContent");
+
+        toggleButton.addEventListener("click", function() {
+            sidebar.classList.toggle("hidden"); // Oculta/muestra sidebar
+            mainContent.classList.toggle("shifted"); // Ajusta el contenido
+        });
+
+		// Menú desplegable dentro del sidebar
+		var dropdown = document.querySelector(".dropdown-btn"); // Asegúrate de tener el botón de desplegable en el HTML
+		var dropdownContent = document.querySelector(".dropdown-container");
+
+		// Al cargar la página, asegúrate de que el desplegable esté cerrado
+		dropdownContent.style.maxHeight = "0"; // Asegura que comience cerrado
+
+		dropdown.addEventListener("click", function() {
+		    if (dropdownContent.style.maxHeight === "0px") {
+		        dropdownContent.style.maxHeight = dropdownContent.scrollHeight + "px"; // Muestra el contenido deslizando
+		    } else {
+		        dropdownContent.style.maxHeight = "0"; // Oculta el contenido
+		    }
+		});
+    </script>
+</body>
+</html>
