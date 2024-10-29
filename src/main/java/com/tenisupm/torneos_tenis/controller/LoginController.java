@@ -1,5 +1,7 @@
 package com.tenisupm.torneos_tenis.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tenisupm.torneos_tenis.entity.Jugador;
+import com.tenisupm.torneos_tenis.repository.JugadorRepository;
 import com.tenisupm.torneos_tenis.service.JugadorService;
 
 @Controller
@@ -17,7 +20,6 @@ import com.tenisupm.torneos_tenis.service.JugadorService;
 public class LoginController {
 
 	private final JugadorService jugadorService;
-	
 	@Autowired
 	public LoginController(JugadorService jugadorService) {
 		this.jugadorService = jugadorService;

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Datos de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 50px;
+        }
+        .container {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"], input[type="password"], input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red; 
+            text-align: center; 
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .top-right-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .top-right-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón para ir a la URI /v1/principal -->
+    <a href="/v1/principal" class="top-right-button">Ir a Principal</a>
+
+    <div class="container">
+        <h2>Modificar Datos del Usuario</h2>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+        
+        <form action="/v1/cambiar-datos" method="POST">
+            <input type="hidden" name="_method" value="POST">
+
+            <!-- Sección 1: Credenciales Actuales -->
+            <div class="section-title">Credenciales Actuales</div>
+            <div>
+                <label for="currentUsername">Nombre de Usuario Actual:</label>
+                <input type="text" id="currentUsername" name="currentUsername" required>
+            </div>
+            <div>
+                <label for="currentPassword">Contraseña Actual:</label>
+                <input type="password" id="currentPassword" name="currentPassword" required>
+            </div>
+
+            <!-- Sección 2: Nueva Información del Usuario -->
+            <div class="section-title">Nueva Información del Usuario</div>
+            <div>
+                <label for="newUsername">Nuevo Nombre de Usuario:</label>
+                <input type="text" id="newUsername" name="newUsername" required>
+            </div>
+            <div>
+                <label for="newPassword">Nueva Contraseña:</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+            </div>
+            <div>
+                <label for="newTelefono">Nuevo Número de Teléfono:</label>
+                <input type="tel" id="newTelefono" name="newTelefono" required>
+            </div>
+            
+            <button type="submit">Modificar</button>
+        </form>
+    </div>
+</body>
+</html>

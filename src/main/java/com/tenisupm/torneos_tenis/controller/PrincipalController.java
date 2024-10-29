@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PrincipalController {
 	
 	@GetMapping("principal")
-	public String mostrarFormularioLogin() {
+	public String mostrarContrasenaCambiarDatos() {
 		return "principal";  // Este nombre corresponde al archivo login.html en src/main/resources/templates
 	}
 	
