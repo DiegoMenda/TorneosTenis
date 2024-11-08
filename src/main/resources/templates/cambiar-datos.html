@@ -83,37 +83,27 @@
         <h2>Modificar Datos del Usuario</h2>
         <div th:if="${error}" class="error" th:text="${error}"></div>
         
-        <form action="/v1/cambiar-datos" method="POST">
-            <input type="hidden" name="_method" value="POST">
+		<form action="/v1/cambiar-datos" method="POST">
+		    <!-- Token CSRF para la protección -->
+		    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-            <!-- Sección 1: Credenciales Actuales -->
-            <div class="section-title">Credenciales Actuales</div>
-            <div>
-                <label for="currentUsername">Nombre de Usuario Actual:</label>
-                <input type="text" id="currentUsername" name="currentUsername" required>
-            </div>
-            <div>
-                <label for="currentPassword">Contraseña Actual:</label>
-                <input type="password" id="currentPassword" name="currentPassword" required>
-            </div>
-
-            <!-- Sección 2: Nueva Información del Usuario -->
-            <div class="section-title">Nueva Información del Usuario</div>
-            <div>
-                <label for="newUsername">Nuevo Nombre de Usuario:</label>
-                <input type="text" id="newUsername" name="newUsername" required>
-            </div>
-            <div>
-                <label for="newPassword">Nueva Contraseña:</label>
-                <input type="password" id="newPassword" name="newPassword" required>
-            </div>
-            <div>
-                <label for="newTelefono">Nuevo Número de Teléfono:</label>
-                <input type="tel" id="newTelefono" name="newTelefono" required>
-            </div>
-            
-            <button type="submit">Modificar</button>
-        </form>
+		    <!-- Campos de entrada -->
+		    <div class="section-title">Nueva Información del Usuario (opcional)</div>
+		    <div>
+		        <label for="newUsername">Nuevo Nombre de Usuario:</label>
+		        <input type="text" id="newUsername" name="newUsername">
+		    </div>
+		    <div>
+		        <label for="newPassword">Nueva Contraseña:</label>
+		        <input type="password" id="newPassword" name="newPassword">
+		    </div>
+		    <div>
+		        <label for="newTelefono">Nuevo Número de Teléfono:</label>
+		        <input type="tel" id="newTelefono" name="newTelefono">
+		    </div>
+		    
+		    <button type="submit">Modificar</button>
+		</form>
     </div>
 </body>
 </html>

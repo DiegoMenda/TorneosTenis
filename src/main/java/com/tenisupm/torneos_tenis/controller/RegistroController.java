@@ -14,7 +14,7 @@ import com.tenisupm.torneos_tenis.service.JugadorService;
 import com.tenisupm.torneos_tenis.service.VerificationTokenService;
 
 @Controller
-@RequestMapping(path = "v1/")
+@RequestMapping(path = "/v1")
 public class RegistroController {
 
     private final JugadorService jugadorService;
@@ -27,13 +27,13 @@ public class RegistroController {
     }
 
     // Mostrar el formulario de registro
-    @GetMapping("registrar")
+    @GetMapping("/registrar")
     public String mostrarFormularioRegistro() {
         return "registrar";  // Nombre del archivo registrar.html en src/main/resources/templates
     }
 
     // Manejar la creación de un nuevo jugador
-    @PostMapping("registrar")
+    @PostMapping("/registrar")
     public String registrarJugador(@ModelAttribute Jugador jugador, Model model) {
         try {
             // Registrar al jugador
@@ -52,13 +52,13 @@ public class RegistroController {
     }
 
     // Página que informa al usuario que se ha enviado el correo de confirmación
-    @GetMapping("confirmacion-enviada")
+    @GetMapping("/confirmacion-enviada")
     public String mostrarConfirmacionEnviada() {
         return "confirmacion-enviada";  // Crear confirmacion-enviada.html en templates
     }
 
     // Manejar la confirmación del token de activación
-    @GetMapping("confirmar")
+    @GetMapping("/confirmar")
     public String confirmarCuenta(@RequestParam("token") String token, Model model) {
         try {
             // Lógica para confirmar la cuenta con el token

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Torneos</title>
+</head>
+<body>
+    <h1>Lista de Torneos</h1>
+    <ul>
+        <li th:each="torneo : ${torneos}">
+            <span th:text="${torneo.temporada}">Temporada</span> -
+            <span th:text="${torneo.fechaLimiteInscripcion}">Fecha Límite</span>
+        </li>
+    </ul>
+</body>
+</html>

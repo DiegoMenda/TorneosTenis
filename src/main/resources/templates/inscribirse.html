@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripción al Torneo</title>
+    <style>
+        /* Reset básico */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+            text-align: left;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .top-right-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .top-right-button:hover {
+            background-color: #27ae60;
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+    </style>
+    <script>
+        function submitForm() {
+            const select = document.getElementById('torneo');
+            const torneoId = select.value;
+            if (torneoId) {
+                const form = document.getElementById('inscripcionForm');
+                form.action = '/v1/torneos/inscribir/' + torneoId; // Ajustar la acción del formulario
+                form.submit(); // Enviar el formulario
+            }
+        }
+    </script>
+</head>
+<body>
+    <a href="/v1/principal" class="top-right-button">Ir a Principal</a>
+
+    <div class="container">
+        <h2>Inscripción al Torneo</h2>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+
+        <form id="inscripcionForm" method="POST" onsubmit="event.preventDefault(); submitForm();">
+            <!-- Token CSRF para la protección -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <!-- Selección del Torneo -->
+            <div>
+                <label for="torneo">Seleccionar Torneo:</label>
+                <select id="torneo" name="torneoId" required>
+                    <option value="" disabled selected>-- Selecciona un torneo --</option>
+                    <option th:each="torneo : ${torneos}" th:value="${torneo.id}" th:text="${torneo.temporada} + ' - Fecha Límite: ' + ${torneo.fechaLimiteInscripcion}"></option>
+                </select>
+            </div>
+
+            <button type="submit">Inscribirse</button>
+        </form>
+
+        <div class="footer-text">
+            &copy; 2024 Torneos de Tenis. Todos los derechos reservados.
+        </div>
+    </div>
+</body>
+</html>

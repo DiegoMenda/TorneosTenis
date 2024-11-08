@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-	<script>
-	        document.addEventListener("DOMContentLoaded", function() {
-	            const loginForm = document.getElementById("loginForm");
-	            const submitButton = document.getElementById("submitButton");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginForm = document.getElementById("loginForm");
+            const submitButton = document.getElementById("submitButton");
 
-	            // Verificar que los elementos existen antes de agregar el event listener
-	            if (submitButton && loginForm) {
-	                submitButton.addEventListener("click", function(event) {
-	                    event.preventDefault(); // Previene el envío del formulario para pruebas
-	                    console.log("Botón de login clickeado");
-	                });
-	            } else {
-	                console.error("No se encontró el formulario de login o el botón de envío.");
-	            }
-	        });
-	</script>
+            // Verificar que los elementos existen antes de agregar el event listener
+            if (submitButton && loginForm) {
+                submitButton.addEventListener("click", function(event) {
+                    event.preventDefault(); // Previene el envío del formulario para pruebas
+                    console.log("Botón de login clickeado");
+                });
+            } else {
+                console.error("No se encontró el formulario de login o el botón de envío.");
+            }
+        });
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,12 +76,12 @@
         .banner a:hover {
             text-decoration: underline;
         }
-		.error-message {
-		    color: red;
-		    font-weight: bold;
-		    text-align: center;
-		    margin-bottom: 15px;
-	    }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -92,10 +92,13 @@
 
     <div class="container">
         <h2>Iniciar Sesión</h2>
-		<div th:if="${error}" class="error-message"> 
-			<p th:text="${error}"></p>
-		</div>
-        <form action="/v1/login" method="POST">
+        <div th:if="${error}" class="error-message"> 
+            <p th:text="${error}"></p>
+        </div>
+        <div th:if="${param.logout}">
+            <p>Has cerrado sesión con éxito.</p>
+        </div>
+        <form id="loginForm" action="/v1/login" method="POST">
             <div>
                 <label for="username">Usuario:</label>
                 <input type="text" id="username" name="username" required>
@@ -104,8 +107,7 @@
                 <label for="password">Contraseña:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-			
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit" id="submitButton">Iniciar Sesión</button>
         </form>
     </div>
 </body>
