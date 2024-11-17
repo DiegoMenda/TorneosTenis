@@ -148,6 +148,23 @@ public class JugadorService {
         }
         jugadorRepository.deleteById(jugadorId);
     }
+    
+
+
+        public boolean esAdminActivo() {
+            Jugador jugadorActivo = getJugadorActivo();
+            return jugadorActivo != null && "admin".equalsIgnoreCase(jugadorActivo.getUsername());
+        }
+    
+        
+        public void saveJugador(Jugador jugador) {
+            jugadorRepository.save(jugador);
+        }
+        
+        public Optional<Jugador> findByUsername(String username) {
+            return jugadorRepository.findJugadorByUsername(username);
+        }
+
 
     // Método para actualizar los detalles de un jugador
 //    @Transactional

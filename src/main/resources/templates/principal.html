@@ -139,8 +139,15 @@
         <h1>Bienvenido a Partidos de Tenis</h1>
         <h2>Gestiona tus partidos y jugadores</h2>
         <p>Explora los torneos, crea y registra partidos, y consulta los resultados.</p>
-        <a href="/v1/torneos" class="button">Inscribirse a un Torneo</a> <!-- Botón de inscripción -->
-		<a href="/v1/torneos-inscritos" class="button">Inscripciones</a>
+        
+        <!-- Botón de inscripción y de inscripciones -->
+        <a href="/v1/torneos" class="button">Inscribirse a un Torneo</a> 
+        <a href="/v1/torneos-inscritos" class="button">Inscripciones</a>
+
+        <!-- Botón de Gestión de Torneos solo para administradores -->
+        <div th:if="${esAdminActivo}">
+            <a href="/v1/gestion-torneos" class="button">Gestión de Torneos</a>
+        </div>
     </main>
 
     <div id="torneosContainer"></div>

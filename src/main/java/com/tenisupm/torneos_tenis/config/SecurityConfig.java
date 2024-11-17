@@ -12,8 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.tenisupm.torneos_tenis.service.CustomUserDetailsService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
@@ -28,10 +33,12 @@ public class SecurityConfig {
     	return http
                 .authorizeHttpRequests(auth -> {
                 	auth.requestMatchers("/v1/register").permitAll();
+                	 auth.requestMatchers("/v1/principal").authenticated();
                 	auth.requestMatchers("/v1/torneos/inscribir/**").authenticated();
                 	auth.anyRequest().authenticated();
                 })
-                .formLogin()
+                .formLogin().permitAll()
+                	.defaultSuccessUrl("/v1/principal", true)
                 	.successHandler(succeshandler()) //URI a la que se redirige despues de iniciar seion
                 	.permitAll()
                 .and()
@@ -45,8 +52,8 @@ public class SecurityConfig {
                 .sessionFixation()
                 	.migrateSession()
                 .and()
-                .httpBasic() // sirve para autenticacion en heade ( para usar postman)
-                .and()
+                //.httpBasic() // sirve para autenticacion en heade ( para usar postman)
+               // .and()
                 .build();
     }
     
@@ -55,6 +62,7 @@ public class SecurityConfig {
     	return new SessionRegistryImpl();
     }
     public AuthenticationSuccessHandler succeshandler() {
+    	System.out.println("weeepaa");
     	return ((request, response, authentication) -> {
     		response.sendRedirect("/v1/principal");
     	});
@@ -74,6 +82,9 @@ public class SecurityConfig {
         return authBuilder.build();
     }
 
+
+
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();  // Usa BCrypt para codificar contraseñas
