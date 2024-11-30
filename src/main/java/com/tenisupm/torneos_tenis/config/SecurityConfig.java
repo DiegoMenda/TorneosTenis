@@ -29,34 +29,23 @@ public class SecurityConfig {
         this.customUserDetailsService = customUserDetailsService;
     }
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    	return http
+        return http
                 .authorizeHttpRequests(auth -> {
-                	auth.requestMatchers("/v1/register").permitAll();
-                	 auth.requestMatchers("/v1/principal").authenticated();
-                	auth.requestMatchers("/v1/torneos/inscribir/**").authenticated();
-                	auth.anyRequest().authenticated();
+                    auth.requestMatchers("/v1/registrar").permitAll();
+                    auth.requestMatchers("/v1/confirmacion-enviada").permitAll();
+                    auth.requestMatchers("/v1/confirmar").permitAll();// Permitir sin autenticación
+                    auth.requestMatchers("/v1/principal").authenticated(); // Requiere autenticación
+                    auth.requestMatchers("/v1/torneos/inscribir/**").authenticated(); // Requiere autenticación
+                    auth.anyRequest().authenticated(); // Todo lo demás requiere autenticación
                 })
-                .formLogin().permitAll()
-                	.defaultSuccessUrl("/v1/principal", true)
-                	.successHandler(succeshandler()) //URI a la que se redirige despues de iniciar seion
-                	.permitAll()
+                .formLogin()
+                    .defaultSuccessUrl("/v1/principal", true)
+                    .permitAll()
                 .and()
-                .sessionManagement()
-                	.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                	.invalidSessionUrl("/login")
-                	.maximumSessions(1)
-                	.expiredUrl("/login")
-                	.sessionRegistry(sessionRegistry())
-                .and()
-                .sessionFixation()
-                	.migrateSession()
-                .and()
-                //.httpBasic() // sirve para autenticacion en heade ( para usar postman)
-               // .and()
                 .build();
     }
-    
     @Bean
     public SessionRegistry sessionRegistry() {
     	return new SessionRegistryImpl();
