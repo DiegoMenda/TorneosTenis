@@ -44,16 +44,20 @@ public class JugadorController {
 		jugadorService.deleteJugador(jugadorId);
 	}
 	
-	@PutMapping(path = "{jugadorId}")
-	public void updateJugador(@PathVariable("jugadorId") Long jugadorId,
-							  @RequestParam(required = false) String nombre,
-							  @RequestParam(required = false) String username,
-							  @RequestParam(required = false) String contrasena,
-							  @RequestParam(required = false) String apellidos,
-							  @RequestParam(required = false) String email,
-							  @RequestParam(required = false) String telefono){
-		
-		jugadorService.updateJugador(jugadorId, username, nombre, apellidos, contrasena, email, telefono);
-	}
+//	@PutMapping(path = "{jugadorId}")
+//	public void updateJugador(@PathVariable("jugadorId") Long jugadorId,
+//							  @RequestParam(required = false) String nombre,
+//							  @RequestParam(required = false) String username,
+//							  @RequestParam(required = false) String contrasena,
+//							  @RequestParam(required = false) String apellidos,
+//							  @RequestParam(required = false) String email,
+//							  @RequestParam(required = false) String telefono){
+//		
+//		jugadorService.actualizarJugador(jugadorId, username, nombre, apellidos, contrasena, email, telefono);
+//	}
+	 @GetMapping("/activo")
+	    public Jugador obtenerJugadorActivo() {
+	        return jugadorService.getJugadorActivo();
+	    }
 	
 }

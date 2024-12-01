@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Torneos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .dropdown {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Torneos</h1>
+        <p>Bienvenido al panel de administración de torneos.</p>
+
+        <!-- Desplegable para seleccionar un torneo -->
+        <div class="dropdown">
+            <label for="torneoSelect">Selecciona un torneo para gestionar:</label>
+            <select id="torneoSelect" name="torneo">
+                <option value="">Selecciona un torneo</option>
+                <!-- Usa la misma estructura que en la página de inscripción -->
+                <option th:each="torneo : ${torneos}"
+                        th:value="${torneo.id}"
+                        th:text="${torneo.temporada + ' - ' + torneo.fechaLimiteInscripcion}">
+                </option>
+            </select>
+        </div>
+
+        <!-- Botón para gestionar el torneo seleccionado -->
+        <button class="button">Gestionar Torneo Seleccionado</button>
+    </div>
+</body>
+</html>

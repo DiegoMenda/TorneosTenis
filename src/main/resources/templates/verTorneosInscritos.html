@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Torneos Inscritos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #torneosContainer {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #e9ecef;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        span {
+            color: #333;
+        }
+
+        .fecha {
+            font-style: italic;
+            color: #555;
+        }
+
+        .boton-volver {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton-volver:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mis Torneos Inscritos</h1>
+    <div id="torneosContainer">
+        <ul>
+            <!-- Iterar sobre los torneos y mostrarlos -->
+            <li th:each="torneo : ${torneosInscritos}">
+                <span th:text="${torneo.temporada}">Temporada del Torneo</span> -
+                <span class="fecha" th:text="${#dates.format(torneo.fechaLimiteInscripcion, 'dd/MM/yyyy')}">Fecha de Límite de Inscripción</span>
+            </li>
+        </ul>
+        <a href="/v1/torneos" class="boton-volver">Volver a Principal</a>
+    </div>
+</body>
+</html>

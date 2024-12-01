@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partidos de Tenis</title>
+    <style>
+        /* Estilos CSS existentes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+        }
+
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #333;
+            color: white;
+            padding-top: 20px;
+            position: fixed;
+            left: -250px;
+            transition: transform 0.3s ease-out;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(99%);
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            margin-top: 40px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            transition: margin-left 0.3s ease-out;
+            margin-left: 0px;
+        }
+
+        main.shifted {
+            margin-left: 0;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            text-align: center;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .toggle-sidebar-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1;
+        }
+
+        #torneosContainer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #torneosContainer ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #torneosContainer li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #torneosContainer li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botón para mostrar/ocultar sidebar -->
+    <button class="toggle-sidebar-btn" id="toggleSidebar">☰ Menú</button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="cambiar-datos">Cambiar Datos</a>
+        <form action="/logout" method="POST" style="display: inline;">
+            <!-- CSRF Token, si Spring Security está habilitado -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="button" style="width: 100%; background-color: #d9534f;">Cerrar Sesión</button>
+        </form>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main id="mainContent">
+        <h1>Bienvenido a Partidos de Tenis</h1>
+        <h2>Gestiona tus partidos y jugadores</h2>
+        <p>Explora los torneos, crea y registra partidos, y consulta los resultados.</p>
+        
+        <!-- Botón de inscripción y de inscripciones -->
+        <a href="/v1/torneos" class="button">Inscribirse a un Torneo</a> 
+        <a href="/v1/torneos-inscritos" class="button">Inscripciones</a>
+
+        <!-- Botón de Gestión de Torneos solo para administradores -->
+        <div th:if="${esAdminActivo}">
+            <a href="/v1/gestion-torneos" class="button">Gestión de Torneos</a>
+        </div>
+    </main>
+
+    <div id="torneosContainer"></div>
+
+    <!-- Script para el funcionamiento del sidebar -->
+    <script>
+        var toggleButton = document.getElementById("toggleSidebar");
+        var sidebar = document.getElementById("sidebar");
+        var mainContent = document.getElementById("mainContent");
+
+        toggleButton.addEventListener("click", function() {
+            sidebar.classList.toggle("hidden");
+            mainContent.classList.toggle("shifted");
+        });
+    </script>
+
+</body>
+</html>
